@@ -10,6 +10,7 @@ module.exports = function (app) {
     .post((req, res) => {
        let {text, locale} = req.body;
        let translation = translator.translate(text, locale);
+       if(text == translation) translation = "Everything looks good to me!";
        res.json({text, translation});
     });
 };

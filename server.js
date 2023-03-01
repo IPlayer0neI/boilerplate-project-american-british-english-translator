@@ -15,6 +15,21 @@ app.use(cors({origin: '*'})); //For FCC testing purposes only
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.post("/api/translate", function(req, res, next){
+  let {text, locale} = req.body;
+
+  if(text === undefined || locale === undefined){
+    res.send({error: "Required field(s) missing"});
+  }else if(!text){
+    res.send({error: "No text to translate"});
+  }else if(locale === undefined){
+    res.send({error: "Required field(s) missing"});
+  }else if(locale != "american-to-british" && locale != "british-to-american"){
+    res.send({error: "Invalid value for locale field"});
+  }else{
+    next()
+  }
+})
 
 // Index page (static HTML)
 app.route('/')
